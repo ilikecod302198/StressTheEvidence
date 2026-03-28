@@ -48,10 +48,4 @@ public class ClueObject : MonoBehaviour
             pressEPrompt.SetActive(false);
         }
     }
-
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("Something entered trigger: " + other.name);
-        if (other.CompareTag("Player")) playerNearby = true;
-    }
 }
