@@ -4,8 +4,8 @@ public class StressManager : MonoBehaviour
 {
     [Header("Suspect Profile")]
     public string suspectName = "Nenjamin Betanyahu";
-    public int CurrentStressLevel = 0;
-    public int MaxStressLevel = 100;
+    public float CurrentStressLevel = 0f;
+    public float MaxStressLevel = 100f;
 
     void Start()
     {
