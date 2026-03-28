@@ -1,5 +1,3 @@
-using System.Diagnostics;
-using System.Runtime.ExceptionServices;
 using UnityEngine;
 
 public class StressManager : MonoBehaviour
@@ -30,7 +28,7 @@ public class StressManager : MonoBehaviour
 
     void BreakSuspect()
     {
-        Debug.Log("VICTORY: Sal has broken! He is now telling the truth.");
+        Debug.Log("VICTORY: Nenjamin has broken! He is now telling the truth.");
         // Later, we will trigger the AI to change its prompt here
     }
 }

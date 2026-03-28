@@ -15,11 +15,11 @@ public class ClueTrigger : MonoBehaviour
             Debug.Log("LOGIC: Player found the " + clueName);
 
             // Find the StressManager in the scene
-            StressManager sm = Object.FindFirstObjectByType<StressManager>();
+            StressManager sm = Object.FindAnyObjectByType<StressManager>();
             
             if (sm != null)
             {
-                sm.IncreaseStress(stressImpact);
+                sm.IncreaseStressLevel(stressImpact);
             }
 
             // 'Destroy' the object (it disappears from the room)
