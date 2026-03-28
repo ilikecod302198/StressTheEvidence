@@ -344,6 +344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 571199154}
   - component: {fileID: 571199155}
+  - component: {fileID: 571199156}
   m_Layer: 0
   m_Name: Bloodstain
   m_TagString: Untagged
@@ -373,7 +374,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571199153}
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
   m_Material: {fileID: 0}
@@ -412,6 +413,24 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.3487115, y: 2.2363188}
   m_EdgeRadius: 0
+--- !u!114 &571199156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 571199153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b97df43aad9484b9f13c5eb9cffedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClueObject
+  clueName: Bloodstain
+  clueDescription: '"A small blood smear on the counter edge. Dried but not old."'
+  isRealClue: 1
+  inspectUI: {fileID: 0}
+  inspectText: {fileID: 0}
+  pressEPrompt: {fileID: 0}
 --- !u!1 &574957004
 GameObject:
   m_ObjectHideFlags: 0
@@ -500,6 +519,7 @@ GameObject:
   m_Component:
   - component: {fileID: 628440880}
   - component: {fileID: 628440881}
+  - component: {fileID: 628440882}
   m_Layer: 0
   m_Name: TrashReceipts
   m_TagString: Untagged
@@ -568,6 +588,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.5785923, y: 1.9757206}
   m_EdgeRadius: 0
+--- !u!114 &628440882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 628440879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b97df43aad9484b9f13c5eb9cffedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClueObject
+  clueName: Trash Receipts
+  clueDescription: A crumpled receipt near the register. $40,000 withdrawal, three
+    days ago."
+  isRealClue: 1
+  inspectUI: {fileID: 0}
+  inspectText: {fileID: 0}
+  pressEPrompt: {fileID: 0}
 --- !u!1 &725881975
 GameObject:
   m_ObjectHideFlags: 0
@@ -604,7 +643,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -1234,6 +1273,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1270255348}
   - component: {fileID: 1270255349}
+  - component: {fileID: 1270255350}
   m_Layer: 0
   m_Name: Crowbar
   m_TagString: Untagged
@@ -1302,6 +1342,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.3496342, y: 1.0507736}
   m_EdgeRadius: 0
+--- !u!114 &1270255350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1270255347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b97df43aad9484b9f13c5eb9cffedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClueObject
+  clueName: Crowbar
+  clueDescription: '"A steel crowbar lodged behind the display cabinet. Some rust,
+    but the tip looks recent."'
+  isRealClue: 1
+  inspectUI: {fileID: 0}
+  inspectText: {fileID: 0}
+  pressEPrompt: {fileID: 0}
 --- !u!1 &1336574417
 GameObject:
   m_ObjectHideFlags: 0
@@ -1428,6 +1487,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1620901037}
   - component: {fileID: 1620901038}
+  - component: {fileID: 1620901039}
   m_Layer: 0
   m_Name: Drawer
   m_TagString: Untagged
@@ -1480,7 +1540,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -1496,6 +1556,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 3.9471798, y: 2.960616}
   m_EdgeRadius: 0
+--- !u!114 &1620901039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1620901036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b97df43aad9484b9f13c5eb9cffedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClueObject
+  clueName: Drawer
+  clueDescription: " \"A half open drawer. Inside \u2014 a photo of a woman and a
+    set of keys.\""
+  isRealClue: 0
+  inspectUI: {fileID: 0}
+  inspectText: {fileID: 0}
+  pressEPrompt: {fileID: 0}
 --- !u!1 &1710875808
 GameObject:
   m_ObjectHideFlags: 0
@@ -1675,6 +1754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1721208090}
   - component: {fileID: 1721208091}
+  - component: {fileID: 1721208092}
   m_Layer: 0
   m_Name: GlassPile
   m_TagString: Untagged
@@ -1727,11 +1807,11 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 2.9806983, y: -3.6394415}
+  m_Offset: {x: 3.2779183, y: -3.3846815}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1741,8 +1821,27 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.355658, y: 1.6926537}
+  m_Size: {x: 2.761218, y: 1.1265197}
   m_EdgeRadius: 0
+--- !u!114 &1721208092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1721208089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b97df43aad9484b9f13c5eb9cffedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClueObject
+  clueName: Glass Pile
+  clueDescription: Shattered display glass. The break pattern looks outward, not
+    inward."
+  isRealClue: 1
+  inspectUI: {fileID: 0}
+  inspectText: {fileID: 0}
+  pressEPrompt: {fileID: 0}
 --- !u!1 &1840327750
 GameObject:
   m_ObjectHideFlags: 0
@@ -1831,6 +1930,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1845217809}
   - component: {fileID: 1845217810}
+  - component: {fileID: 1845217811}
   m_Layer: 0
   m_Name: Plant
   m_TagString: Untagged
@@ -1899,6 +1999,71 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1.3596463, y: 2.879033}
   m_EdgeRadius: 0
+--- !u!114 &1845217811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1845217808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b97df43aad9484b9f13c5eb9cffedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClueObject
+  clueName: Plant
+  clueDescription: '"Soil scattered around the base. Could''ve been knocked during
+    a struggle."'
+  isRealClue: 0
+  inspectUI: {fileID: 0}
+  inspectText: {fileID: 0}
+  pressEPrompt: {fileID: 0}
+--- !u!1 &1939724740
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1939724742}
+  - component: {fileID: 1939724741}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1939724741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939724740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fccc488aec16b4b7da169de537769ffd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClueManager
+  realClues: []
+  redHerrings: []
+--- !u!4 &1939724742
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1939724740}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.17133, y: 1.19064, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2016305324
 GameObject:
   m_ObjectHideFlags: 0
@@ -1909,6 +2074,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2016305325}
   - component: {fileID: 2016305326}
+  - component: {fileID: 2016305327}
   m_Layer: 0
   m_Name: Fingerprint
   m_TagString: Untagged
@@ -1977,6 +2143,25 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 2.7633028, y: 1.4454002}
   m_EdgeRadius: 0
+--- !u!114 &2016305327
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2016305324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41b97df43aad9484b9f13c5eb9cffedc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ClueObject
+  clueName: Fingerprint
+  clueDescription: '"A partial print on the interior glass panel. Whoever left this
+    wasn''t wearing gloves."'
+  isRealClue: 1
+  inspectUI: {fileID: 0}
+  inspectText: {fileID: 0}
+  pressEPrompt: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -1987,3 +2172,4 @@ SceneRoots:
   - {fileID: 1194740974}
   - {fileID: 1379098287}
   - {fileID: 725881979}
+  - {fileID: 1939724742}
