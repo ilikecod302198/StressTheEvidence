@@ -13,26 +13,22 @@ public class AiManager : MonoBehaviour
     public async void SendToNenjamin(string playerInput)
     {
         string lowerInput = playerInput.ToLower();
-        float pressureBonus = 0;
 
         // LOGIC: Only increase stress if the player MENTIONS the item AND has it
         if (lowerInput.Contains("crowbar") && hasCrowbar)
         {
-            pressureBonus = 30f; 
-            Debug.Log("LOGIC: You trapped him with the Crowbar!");
+            stress.IncreaseStressLevel(25); 
         }
         else if (lowerInput.Contains("blood") && hasBloodSample)
         {
-            pressureBonus = 40f;
-            Debug.Log("LOGIC: The DNA evidence is breaking him.");
+            stress.IncreaseStressLevel(40);
         }
 
-        if (pressureBonus > 0) stress.AddStress(pressureBonus);
-
-        // Send the current stress level TO the AI so it knows how to act
-        string context = $"[Nervousness: {stress.currentStress}%] ";
-        string response = await nenjaminBrain.Chat(context + playerInput);
         
-        Debug.Log("NENJAMIN: " + response);
+        // Send the current stress level TO the AI so it knows how to act
+        string context = $"[Nervousness: {stress.CurrentStressLevel}%] ";
+        //string response = await nenjaminBrain.Generate(context + playerInput);
+        
+        //Debug.Log("NENJAMIN: " + response);
     }
 }

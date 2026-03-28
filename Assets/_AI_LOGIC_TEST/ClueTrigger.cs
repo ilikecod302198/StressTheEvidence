@@ -2,16 +2,20 @@ using UnityEngine;
 
 public class ClueTrigger : MonoBehaviour
 {
-    public string clueType; // Set to "Crowbar" or "Blood" in Inspector
+    public string clueType = "Crowbar"; // Set to "Crowbar" or "Blood" in Inspector
     
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            AIManager ai = Object.FindAnyObjectByType<AIManager>();
+            AiManager ai = Object.FindAnyObjectByType<AiManager>();
             
-            if (clueType == "Crowbar") ai.hasCrowbar = true;
-            if (clueType == "Blood") ai.hasBloodSample = true;
+            if (clueType == "Crowbar") {
+                ai.hasCrowbar = true;
+            }
+            else if (clueType == "Blood") {
+                ai.hasBloodSample = true;
+            }
 
             Debug.Log("SYSTEM: Picked up " + clueType + ". You can now use this in chat.");
             gameObject.SetActive(false);
