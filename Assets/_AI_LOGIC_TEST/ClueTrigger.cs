@@ -2,27 +2,18 @@ using UnityEngine;
 
 public class ClueTrigger : MonoBehaviour
 {
-    [Header("Evidence Settings")]
-    public string clueName = "Evidence";
-    public int stressImpact = 20;
-
-    // This is an 'Interrupt' triggered by Physics
+    public string clueType; // Set to "Crowbar" or "Blood" in Inspector
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Check if the thing hitting the clue is the Player
         if (other.CompareTag("Player"))
         {
-            Debug.Log("LOGIC: Player found the " + clueName);
-
-            // Find the StressManager in the scene
-            StressManager sm = Object.FindAnyObjectByType<StressManager>();
+            AIManager ai = Object.FindAnyObjectByType<AIManager>();
             
-            if (sm != null)
-            {
-                sm.IncreaseStressLevel(stressImpact);
-            }
+            if (clueType == "Crowbar") ai.hasCrowbar = true;
+            if (clueType == "Blood") ai.hasBloodSample = true;
 
-            // 'Destroy' the object (it disappears from the room)
+            Debug.Log("SYSTEM: Picked up " + clueType + ". You can now use this in chat.");
             gameObject.SetActive(false);
         }
     }
