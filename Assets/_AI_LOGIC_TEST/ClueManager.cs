@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 public class ClueManager : MonoBehaviour
 {
+    public int questionsLeft = 7;
     public static ClueManager Instance;
     public List<string> realClues = new List<string>();
     public List<string> redHerrings = new List<string>();

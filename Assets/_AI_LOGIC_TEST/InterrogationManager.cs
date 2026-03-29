@@ -15,16 +15,21 @@ public class InterrogationManager : MonoBehaviour
     public GameObject loseScreen;
 
     private int questionsLeft = 7;
-    private string conversationHistory = "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";
+    private string conversationHistory = "";
     private bool gameOver = false;
-    private string apiKey = "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";
+    private string apiKey = "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";
     private string apiUrl = "https://api.groq.com/openai/v1/chat/completions";
 
     void Start()
-    {
+    {   
+        Debug.Log("ClueManager exists: " + (ClueManager.Instance != null));
+        Debug.Log("Questions left: " + ClueManager.Instance?.questionsLeft);
+
         if (ClueManager.Instance != null)
+        {   
+            questionsLeft = ClueManager.Instance.questionsLeft;
             Debug.Log("Clues found: " + ClueManager.Instance.GetRealCluesSummary());
-        
+        }
         UpdateQuestionsUI();
         conversationLog.text = "Nenjamin sits across from you, calm and composed.\n\n";
 
@@ -66,6 +71,10 @@ Rules:
         string message = playerInput.text.Trim();
         playerInput.text = "";
         questionsLeft--;
+        if (ClueManager.Instance != null)
+        {
+            ClueManager.Instance.questionsLeft = questionsLeft;
+        }
         UpdateQuestionsUI();
         conversationLog.text += $"<b>Detective:</b> {message}\n\n";
         StartCoroutine(GetAIResponse(message));
