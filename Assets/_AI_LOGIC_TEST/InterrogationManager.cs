@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections;
 using UnityEngine.Networking;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class InterrogationManager : MonoBehaviour
 {
@@ -16,8 +17,8 @@ public class InterrogationManager : MonoBehaviour
     private int questionsLeft = 7;
     private string conversationHistory = "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";
     private bool gameOver = false;
-    private string apiKey = "";
-    private string apiUrl = "https://api.anthropic.com/v1/messages";
+    private string apiKey = "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";
+    private string apiUrl = "https://api.groq.com/openai/v1/chat/completions";
 
     void Start()
     {
@@ -26,6 +27,10 @@ public class InterrogationManager : MonoBehaviour
         
         UpdateQuestionsUI();
         conversationLog.text = "Nenjamin sits across from you, calm and composed.\n\n";
+
+        // Auto focus input field
+        playerInput.ActivateInputField();
+        playerInput.Select();    
     }
 
     string BuildSystemPrompt()
@@ -68,59 +73,54 @@ Rules:
 
     IEnumerator GetAIResponse(string playerMessage)
     {
-        conversationLog.text += "<i>Nenjamin is thinking...</i>\n\n";
-        conversationHistory += $"\nDetective: {playerMessage}";
+    conversationLog.text += "<i>Nenjamin is thinking...</i>\n\n";
+    conversationHistory += $"\nDetective: {playerMessage}";
 
-        string msgContent = EscapeJson(conversationHistory);
-        string body = "{\"model\":\"claude-haiku-4-5-20251001\",\"max_tokens\":300,\"system\":\"" 
-            + EscapeJson(BuildSystemPrompt()) 
-            + "\",\"messages\":[{\"role\":\"user\",\"content\":\"" + msgContent + "\"}]}";
+    string body = "{\"model\":\"llama-3.3-70b-versatile\",\"messages\":[{\"role\":\"system\",\"content\":\"" + EscapeJson(BuildSystemPrompt()) + "\"},{\"role\":\"user\",\"content\":\"" + EscapeJson(conversationHistory) + "\"}],\"max_tokens\":300}";
 
-        var request = new UnityWebRequest(apiUrl, "POST");
-        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(body);
-        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
-        request.downloadHandler = new DownloadHandlerBuffer();
-        request.SetRequestHeader("Content-Type", "application/json");
-        request.SetRequestHeader("x-api-key", apiKey);
-        request.SetRequestHeader("anthropic-version", "2023-06-01");
+    var request = new UnityWebRequest(apiUrl, "POST");
+    byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(body);
+    request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+    request.downloadHandler = new DownloadHandlerBuffer();
+    request.SetRequestHeader("Content-Type", "application/json");
+    request.SetRequestHeader("Authorization", "Bearer " + apiKey);
 
-        yield return request.SendWebRequest();
+    yield return request.SendWebRequest();
 
-        if (request.result != UnityWebRequest.Result.Success)
-        {
-            conversationLog.text += $"<color=red>[Error: {request.error}]</color>\n\n";
-            yield break;
-        }
-
-        string fullReply = ParseContent(request.downloadHandler.text);
-        int stress = ParseStress(fullReply);
-        string displayReply = System.Text.RegularExpressions.Regex.Replace(
-            fullReply, @"\{""stress"".*?\}", "").Trim();
-
-        conversationHistory += $"\nNenjamin: {displayReply}";
-        
-        // Remove "thinking" text and add real response
-        conversationLog.text = conversationLog.text.Replace("<i>Nenjamin is thinking...</i>\n\n", "");
-        conversationLog.text += $"<b>Nenjamin:</b> {displayReply}\n\n";
-
-        Debug.Log("Stress: " + stress);
-
-        if (stress >= 90)
-        {
-            winScreen.SetActive(true);
-            gameOver = true;
-        }
-        else if (questionsLeft <= 0)
-        {
-            loseScreen.SetActive(true);
-            gameOver = true;
-        }
+    if (request.result != UnityWebRequest.Result.Success)
+    {
+        conversationLog.text += $"<color=red>[Error: {request.error} - {request.downloadHandler.text}]</color>\n\n";
+        yield break;
     }
 
+    string fullReply = ParseContent(request.downloadHandler.text);
+    int stress = ParseStress(fullReply);
+    string displayReply = System.Text.RegularExpressions.Regex.Replace(
+        fullReply, @"\{""stress"".*?\}", "").Trim();
+
+    conversationHistory += $"\nNenjamin: {displayReply}";
+
+    conversationLog.text = conversationLog.text.Replace("<i>Nenjamin is thinking...</i>\n\n", "");
+    conversationLog.text += $"<b>Nenjamin:</b> {displayReply}\n\n";
+
+    Debug.Log("Stress: " + stress);
+
+    if (stress >= 90)
+    {
+        winScreen.SetActive(true);
+        gameOver = true;
+    }
+    else if (questionsLeft <= 0)
+    {
+        loseScreen.SetActive(true);
+        gameOver = true;
+    }
+    }
     string ParseContent(string json)
     {
-        int start = json.IndexOf("\"text\":\"") + 8;
-        if (start < 8) return "[No response]";
+        int start = json.IndexOf("\"content\": \"") + 12;
+        if (start < 12) start = json.IndexOf("\"content\":\"") + 11;
+        if (start < 11) return "[No response]";
         int end = json.IndexOf("\"", start);
         if (end < 0) return "[Parse error]";
         return json.Substring(start, end - start)
@@ -147,4 +147,14 @@ Rules:
                 .Replace("\n", "\\n")
                 .Replace("\r", "");
     }
+
+    void Update()
+    {
+    if (Keyboard.current.enterKey.wasPressedThisFrame)
+        OnSendButton();
+    
+    if (!playerInput.isFocused)
+        playerInput.ActivateInputField();
+    }   
+
 }
