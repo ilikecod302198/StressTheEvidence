@@ -5,6 +5,6 @@ public class MainMenuManager : MonoBehaviour
 {
     public void LoadGame()
     {
-        SceneManager.LoadScene("JewleryStore");
+        SceneManager.LoadScene("Cutscene1");
     }
 }
