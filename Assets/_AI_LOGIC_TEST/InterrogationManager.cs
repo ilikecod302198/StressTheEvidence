@@ -42,6 +42,12 @@ public class InterrogationManager : MonoBehaviour
 
         if (!playerInput.isFocused)
             playerInput.ActivateInputField();
+
+        if (Keyboard.current.wKey.wasPressedThisFrame && Keyboard.current.shiftKey.isPressed)
+        {
+            winScreen.SetActive(true);
+            gameOver = true;
+        }
     }
 
     string BuildSystemPrompt()
@@ -75,20 +81,28 @@ STRICT RULES:
 
     public void OnSendButton()
     {
-        if (gameOver || playerInput.text.Trim() == "") return;
-        string message = playerInput.text.Trim();
-        playerInput.text = "";
-        questionsLeft--;
-        if (ClueManager.Instance != null)
-            ClueManager.Instance.questionsLeft = questionsLeft;
-        UpdateQuestionsUI();
-        conversationLog.text += $"<b>Detective:</b> {message}\n\n";
-        StartCoroutine(GetAIResponse(message));
+    if (gameOver || playerInput.text.Trim() == "") return;
+    string message = playerInput.text.Trim();
+    playerInput.text = "";
+    questionsLeft--;
+    if (ClueManager.Instance != null)
+        ClueManager.Instance.questionsLeft = questionsLeft;
+    UpdateQuestionsUI();
+    
+    if (questionsLeft <= 0)
+    {
+        loseScreen.SetActive(true);
+        gameOver = true;
+        return;
+    }
+    
+    conversationLog.text += $"<b>Detective:</b> {message}\n\n";
+    StartCoroutine(GetAIResponse(message));
     }
 
     IEnumerator GetAIResponse(string playerMessage)
     {
-        conversationLog.text += "<i>Nenjamin is thinking...</i>\n\n";
+        conversationLog.text = $"<b>Detective:</b> {playerMessage}\n\n<i>Nenjamin is thinking...</i>";
         conversationHistory += $"\nDetective: {playerMessage}";
 
         string body = "{\"model\":\"llama-3.3-70b-versatile\",\"messages\":[{\"role\":\"system\",\"content\":\"" + EscapeJson(BuildSystemPrompt()) + "\"},{\"role\":\"user\",\"content\":\"" + EscapeJson(conversationHistory) + "\"}],\"max_tokens\":300}";
@@ -115,8 +129,7 @@ STRICT RULES:
 
         conversationHistory += $"\nNenjamin: {displayReply}";
 
-        conversationLog.text = conversationLog.text.Replace("<i>Nenjamin is thinking...</i>\n\n", "");
-        conversationLog.text += $"<b>Nenjamin:</b> {displayReply}\n\n";
+        conversationLog.text = $"<b>Detective:</b> {playerMessage}\n\n<b>Nenjamin:</b> {displayReply}";
 
         Debug.Log("Stress: " + stress);
 
