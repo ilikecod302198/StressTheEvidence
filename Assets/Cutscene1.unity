@@ -153,7 +153,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0.545, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -71, y: -120}
+  m_AnchoredPosition: {x: -70, y: -155}
   m_SizeDelta: {x: 832.6887, y: 102.7241}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &162297423
@@ -210,8 +210,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 12
-  m_fontSizeBase: 12
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 342.1496, y: 0, z: 129.27069, w: 0}
+  m_margin: {x: 342.1496, y: 0, z: 68.114746, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -297,7 +297,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CutsceneManager
   displayImage: {fileID: 0}
   images: []
-  timePerImage: 3
+  audioClips: []
+  timePerImage: 10
   nextScene: JewleryStore
 --- !u!114 &359815850
 MonoBehaviour:
@@ -436,7 +437,8 @@ MonoBehaviour:
   displayImage: {fileID: 513089545}
   images:
   - {fileID: -7726896533775893044, guid: 5b091852eaa2a41ea892055f429c2f9a, type: 3}
-  timePerImage: 7
+  audioClips: []
+  timePerImage: 15
   nextScene: JewleryStore
 --- !u!1 &513089543
 GameObject:
