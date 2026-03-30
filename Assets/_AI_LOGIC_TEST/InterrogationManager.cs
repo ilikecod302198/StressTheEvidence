@@ -13,16 +13,15 @@ public class InterrogationManager : MonoBehaviour
     public TMP_Text suspectNameText;
     public GameObject winScreen;
     public GameObject loseScreen;
-
+    public SpriteRenderer nejaminSprite;
+    public Sprite[] expressions; // 0: calm, 1: nervous, 2: sweating, 3: breaking
     private int questionsLeft = 7;
     private string conversationHistory = "";
     private bool gameOver = false;
     private string apiKey = "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";
     private string apiUrl = "https://api.groq.com/openai/v1/chat/completions";
 
-    public SpriteRendered nejaminSprite;
-    public Sprite[] expressions; // 0: calm, 1: nervous, 2: sweating, 3: breaking
-    void Start()
+        void Start()
     {   
         Debug.Log("ClueManager exists: " + (ClueManager.Instance != null));
         Debug.Log("Questions left: " + ClueManager.Instance?.questionsLeft);
@@ -120,7 +119,7 @@ STRICT RULES:
     
     string expression = ParseExpression(request.downloadHandler.text);
     UpdateExpression(expression);
-    
+
     if (stress >= 90)
     {
         winScreen.SetActive(true);
