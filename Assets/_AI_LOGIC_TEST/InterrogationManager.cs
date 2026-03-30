@@ -4,6 +4,7 @@ using System.Collections;
 using UnityEngine.Networking;
 using TMPro;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class InterrogationManager : MonoBehaviour
 {
@@ -11,9 +12,6 @@ public class InterrogationManager : MonoBehaviour
     public TMP_InputField playerInput;
     public TMP_Text questionsLeftText;
     public TMP_Text suspectNameText;
-    public GameObject winScreen;
-    public GameObject loseScreen;
-    
     public UnityEngine.UI.Image nenjaminImage;
     public Sprite[] expressions;
 
@@ -45,28 +43,35 @@ public class InterrogationManager : MonoBehaviour
             playerInput.ActivateInputField();
 
         if (Keyboard.current.f1Key.wasPressedThisFrame)
-        {
-            UpdateExpression("nervous");
-            Debug.Log("Stress forced to nervous");
-        }
-        if (Keyboard.current.f2Key.wasPressedThisFrame)
-        {
-            UpdateExpression("sweating");
-            Debug.Log("Stress forced to sweating");
-        }
-        if (Keyboard.current.f3Key.wasPressedThisFrame)
-        {
-            UpdateExpression("breaking");
-            winScreen.SetActive(true);
-            gameOver = true;
-        }
-
-        if (Keyboard.current.f4Key.wasPressedThisFrame)
-        {
-            UpdateExpression("breaking");
-            winScreen.SetActive(true);
-            gameOver = true;
-        }
+            {
+                UpdateExpression("nervous");
+                Debug.Log("Stress: nervous");
+            }
+            if (Keyboard.current.f2Key.wasPressedThisFrame)
+            {
+                UpdateExpression("sweating");
+                Debug.Log("Stress: sweating");
+            }
+            if (Keyboard.current.f3Key.wasPressedThisFrame)
+            {
+                UpdateExpression("angry");
+                Debug.Log("Stress: angry");
+            }
+            if (Keyboard.current.f4Key.wasPressedThisFrame)
+            {
+                UpdateExpression("breaking");
+                Debug.Log("Stress: breaking");
+            }
+            if (Keyboard.current.f5Key.wasPressedThisFrame)
+            {
+                gameOver = true;
+                SceneManager.LoadScene("WinScene");
+            }
+            if (Keyboard.current.f6Key.wasPressedThisFrame)
+                {
+                gameOver = true;
+                SceneManager.LoadScene("LoseScene");
+                }
     }
 
     string BuildSystemPrompt()
@@ -111,7 +116,7 @@ STRICT RULES:
     
     if (questionsLeft <= 0)
     {
-        loseScreen.SetActive(true);
+        SceneManager.LoadScene("LoseScene");
         gameOver = true;
         return;
     }
@@ -158,13 +163,13 @@ STRICT RULES:
 
         if (stress >= 90)
         {
-            winScreen.SetActive(true);
             gameOver = true;
+            SceneManager.LoadScene("WinScene");
         }
         else if (questionsLeft <= 0)
         {
-            loseScreen.SetActive(true);
             gameOver = true;
+            SceneManager.LoadScene("LoseScene");
         }
     }
 

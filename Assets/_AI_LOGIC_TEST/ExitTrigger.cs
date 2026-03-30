@@ -15,8 +15,8 @@ public class ExitTrigger : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.CompareTag("Player"))
-            exitPrompt.enabled = false;
+        if (other.CompareTag("Player") && exitPrompt != null)
+        exitPrompt.enabled = false;
     }
 
     void Update()
