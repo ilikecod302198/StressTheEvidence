@@ -81,9 +81,20 @@ public class InterrogationManager : MonoBehaviour
         bool hasEvidence = ClueManager.Instance != null && ClueManager.Instance.HasRealClues();
 
         string evidenceInstruction = hasEvidence
-            ? $"The detective has found real evidence: {realClues}. Only increase stress if they ask a SMART, specific question about this evidence. Simply stating 'I found the crowbar' is not enough — they must connect it to you meaningfully."
-            : "The detective has found NO real evidence. Be smug, cool and professional. Deflect everything.";
+            ? $"The detective has found real evidence: {realClues}. Increase stress by 15-20 when they ask a question that connects this evidence to you specifically. Simply saying 'I found the crowbar' adds only 5 stress. But 'The crowbar has your fingerprints' or 'Why was it hidden in YOUR vents?' adds 20-25 stress."
+            : "The detective has found NO real evidence. Be smug and dismissive. Say things like 'Is that all you have, officer?'";
 
+        string rules = string.Join("\n",
+        "- Stress: 0-100. Start at 15.",
+        "- Vague mention of evidence: +5 stress",
+        "- Specific question connecting evidence to you: +20 stress",
+        "- Multiple pieces of evidence combined in one question: +30 stress",
+        "- Reach 90+ after 3-4 smart specific questions.",
+        "- Below 50 stress: confident and dismissive",
+        "- 50-75 stress: defensive and evasive",
+        "- 75-90 stress: visibly rattled, short answers",
+        "-  90+: confess everything"
+        );
         return $@"You are Nenjamin Betanyahu, a high-end jeweler who staged a robbery at his own store 'The Gilded Loop' to claim insurance on the stolen 'Shattered Star' diamond. You hired a thug to break the display case, but the thug cut himself and left a crowbar behind in the vents.
 
 Your personality: Calm and professional at first. Defensive when pressured with real evidence AND smart questions. You only crack when cornered with specific, intelligent accusations.
@@ -92,14 +103,17 @@ Your personality: Calm and professional at first. Defensive when pressured with 
 Red herrings found by detective (mean nothing, stay calm or get slightly smug): {redHerrings}
 
 STRICT RULES:
+- CALCULATE STRESS MATHEMATICALLY: Every time real evidence (Crowbar/Blood) is linked to you, you MUST add +25 to the 'stress' value in your JSON. 
+- DO NOT ignore evidence. If the detective is smart, your stress MUST go up.
+- Your 'expression' MUST change to 'nervous' at 40, 'sweating' at 60, and 'breaking' at 90.
 - Speak ONLY in dialogue. Never describe actions or thoughts.
 - NEVER use asterisks like *sweats* or *nervous*. NEVER say 'I am sweating' or 'my hands are shaking'.
 - Show stress through your words and tone only.
 - Keep responses to 2-3 sentences max.
 - Only increase stress when detective asks something specific and intelligent about real evidence.
 - Stress: 0-100. Start at 15. Increase by 20-30 each time detective mentions real evidence intelligently. Reach 90+ after 3-4 good questions.
-- Confess only if stress reaches 90+.
-- You are a powerful, well-connected man who believes he is above suspicion. You occasionally reference your status, your lawyers, and your many years of public service. You are witty and condescending.
+- At 90+ stress you MUST fully confess. Say explicitly that you staged the robbery, hired the thug, and planned the insurance fraud. This is a complete confession, not just nervousness.
+- you know your guilty and can only hold off for so long before you confess.
 - End EVERY response on a new line with exactly: {{""stress"": 20, ""expression"": ""calm""}}
 - Expressions: calm, nervous, sweating, angry, breaking";
 }
@@ -150,7 +164,7 @@ STRICT RULES:
         string fullReply = ParseContent(request.downloadHandler.text);
         int stress = ParseStress(fullReply);
         string displayReply = System.Text.RegularExpressions.Regex.Replace(
-            fullReply, @"\{""stress"".*?\}", "").Trim();
+        fullReply, @"\{""stress"".*?\}", "").Trim();
 
         conversationHistory += $"\nNenjamin: {displayReply}";
 
@@ -158,13 +172,13 @@ STRICT RULES:
 
         Debug.Log("Stress: " + stress);
 
-        string expression = ParseExpression(request.downloadHandler.text);
+        string expression = ParseExpression(fullReply); // ✅ parse expression from reply text too
         UpdateExpression(expression);
 
         if (stress >= 90)
         {
             gameOver = true;
-            SceneManager.LoadScene("WinScene");
+            StartCoroutine(WinAfterDelay());
         }
         else if (questionsLeft <= 0)
         {
@@ -199,16 +213,19 @@ STRICT RULES:
 
     string ParseContent(string json)
     {
-        int start = json.IndexOf("\"content\": \"") + 12;
-        if (start < 12) start = json.IndexOf("\"content\":\"") + 11;
-        if (start < 11) return "[No response]";
-        int end = json.IndexOf("\"", start);
-        if (end < 0) return "[Parse error]";
-        return json.Substring(start, end - start)
+        // Find "content": and extract the full escaped string value
+        var match = System.Text.RegularExpressions.Regex.Match(
+            json, 
+            @"""content""\s*:\s*""((?:[^""\\]|\\.)*)"""
+        );
+        
+        if (!match.Success) return "[No response]";
+        
+        return match.Groups[1].Value
             .Replace("\\n", "\n")
-            .Replace("\\\"", "\"");
+            .Replace("\\\"", "\"")
+            .Replace("\\\\", "\\");
     }
-
     int ParseStress(string text)
     {
         var match = System.Text.RegularExpressions.Regex.Match(text, "\"stress\"\\s*:\\s*(\\d+)");
@@ -227,5 +244,11 @@ STRICT RULES:
                 .Replace("\"", "\\\"")
                 .Replace("\n", "\\n")
                 .Replace("\r", "");
+    }
+
+    IEnumerator WinAfterDelay()
+    {
+    yield return new WaitForSeconds(5f);
+    SceneManager.LoadScene("WinScene");
     }
 }
