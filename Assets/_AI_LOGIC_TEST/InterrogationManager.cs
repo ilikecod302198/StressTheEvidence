@@ -43,8 +43,19 @@ public class InterrogationManager : MonoBehaviour
         if (!playerInput.isFocused)
             playerInput.ActivateInputField();
 
-        if (Keyboard.current.wKey.wasPressedThisFrame && Keyboard.current.shiftKey.isPressed)
+        if (Keyboard.current.f1Key.wasPressedThisFrame)
         {
+            UpdateExpression("nervous");
+            Debug.Log("Stress forced to nervous");
+        }
+        if (Keyboard.current.f2Key.wasPressedThisFrame)
+        {
+            UpdateExpression("sweating");
+            Debug.Log("Stress forced to sweating");
+        }
+        if (Keyboard.current.f3Key.wasPressedThisFrame)
+        {
+            UpdateExpression("breaking");
             winScreen.SetActive(true);
             gameOver = true;
         }
