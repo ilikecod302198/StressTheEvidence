@@ -13,7 +13,8 @@ public class InterrogationManager : MonoBehaviour
     public TMP_Text suspectNameText;
     public GameObject winScreen;
     public GameObject loseScreen;
-    public SpriteRenderer nenjaminSprite;
+    
+    public UnityEngine.UI.Image nenjaminImage;
     public Sprite[] expressions;
 
     private int questionsLeft = 7;
@@ -54,6 +55,13 @@ public class InterrogationManager : MonoBehaviour
             Debug.Log("Stress forced to sweating");
         }
         if (Keyboard.current.f3Key.wasPressedThisFrame)
+        {
+            UpdateExpression("breaking");
+            winScreen.SetActive(true);
+            gameOver = true;
+        }
+
+        if (Keyboard.current.f4Key.wasPressedThisFrame)
         {
             UpdateExpression("breaking");
             winScreen.SetActive(true);
@@ -161,19 +169,19 @@ STRICT RULES:
 
     void UpdateExpression(string expression)
     {
-        if (nenjaminSprite == null) return;
-
+        if (nenjaminImage == null) return;
+    
         int index = expression switch
         {
             "nervous"  => 1,
             "sweating" => 2,
-            "angry"    => 2,
-            "breaking" => 3,
+            "angry"    => 3,
+            "breaking" => 4,
             _          => 0
         };
-
+    
         if (expressions.Length > index)
-            nenjaminSprite.sprite = expressions[index];
+            nenjaminImage.sprite = expressions[index];
     }
 
     string ParseExpression(string json)
