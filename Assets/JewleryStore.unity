@@ -850,6 +850,7 @@ GameObject:
   - component: {fileID: 725881976}
   - component: {fileID: 725881981}
   - component: {fileID: 725881980}
+  - component: {fileID: 725881982}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1030,6 +1031,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   moveSpeed: 3.9
+--- !u!95 &725881982
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 725881975}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 85eb52c70f42444a8ab5757b66879c69, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &729640722
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,6 +2755,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fccc488aec16b4b7da169de537769ffd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClueManager
+  questionsLeft: 7
   realClues: []
   redHerrings: []
 --- !u!4 &1939724742
