@@ -521,6 +521,9 @@ MonoBehaviour:
   images:
   - {fileID: 1208040086343421634, guid: e5c728be1ae37482db932c0595be98b4, type: 3}
   - {fileID: -4748212562562973014, guid: 73ff7d7c8c7294212a2ca568d738fbe9, type: 3}
+  audioClips:
+  - {fileID: 8300000, guid: 0154fa8e0ece240ad81cb1fb8e9fe15b, type: 3}
+  - {fileID: 8300000, guid: 0154fa8e0ece240ad81cb1fb8e9fe15b, type: 3}
   timePerImage: 5
   nextScene: MainMenu
 --- !u!1660057539 &9223372036854775807
